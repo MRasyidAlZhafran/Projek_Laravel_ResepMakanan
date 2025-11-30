@@ -15,6 +15,8 @@ class RecipeController extends Controller
         // tampilan semua resep
         $recipes = Recipe::with('user')->latest()->get();
         return view('resep', compact('recipes'));
+
+        $recipes = Recipe::with('ratings')->get();
     }
 
     public function store(Request $request)
@@ -91,5 +93,25 @@ class RecipeController extends Controller
         $isFavorited = Auth::user()->favoriteRecipes->contains($id);
 
         return view('show', compact('recipe', 'isFavorited'));
+    }
+
+    public function edit($id)
+    {
+        $recipe = Recipe::findOrFail($id);
+        return view('edit', compact('recipe'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            // tambahkan validasi lain sesuai kebutuhan
+        ]);
+
+        $recipe = Recipe::findOrFail($id);
+        $recipe->update($request->all());
+
+        return redirect()->route('recipes.index')->with('success', 'Resep berhasil diupdate!');
     }
 }

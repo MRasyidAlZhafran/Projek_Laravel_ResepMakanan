@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RatingController;
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -26,3 +27,8 @@ Route::post('/recipes/{id}/favorite/remove', [RecipeController::class, 'removeFa
 Route::get('/favorit', [RecipeController::class, 'favorites'])->name('recipes.favorites');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
+Route::post('/recipes/{id}/rate', [RatingController::class, 'store'])->name('recipes.rate');
+
+Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
+Route::put('/recipes/{id}', [RecipeController::class, 'update'])->name('recipes.update');

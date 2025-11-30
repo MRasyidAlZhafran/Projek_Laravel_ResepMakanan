@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ $recipe->title }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -25,7 +26,20 @@
         <p class="text-muted">{{ $recipe->description }}</p>
 
         <h5 class="mt-4">Langkah-langkah:</h5>
-        <p>{{ $recipe->content }}</p>
+        <p>{!! nl2br(e($recipe->content)) !!}</p>
+
+        <form action="{{ route('recipes.rate', $recipe->id) }}" method="POST">
+          @csrf
+          <label>Berikan Rating:</label>
+          <select name="rating" class="form-select w-auto d-inline">
+            @for($i=1; $i<=5; $i++)
+              <option value="{{ $i }}">{{ $i }} ★</option>
+              @endfor
+          </select>
+          <button type="submit" class="btn btn-sm btn-warning">Simpan</button>
+        </form>
+
+        <p class="mt-2">Rata-rata rating: {{ number_format($recipe->averageRating(), 1) }} ★</p>
 
         <div class="d-flex justify-content-between mt-4">
           @php
@@ -36,7 +50,7 @@
           <form method="POST" action="{{ route('recipes.addFavorite', $recipe->id) }}">
             @csrf
             <button type="submit" class="btn btn-sm btn-outline-secondary">
-              ✓ Tambah Favorit
+              <i class="bi bi-heart"></i> Tambah Favorit
             </button>
           </form>
           @endif
@@ -46,7 +60,7 @@
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-sm btn-outline-danger">
-              ✗ Hapus Resep
+              <i class="bi bi-trash-fill"></i> Hapus Resep
             </button>
           </form>
           @endif

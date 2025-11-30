@@ -1,0 +1,46 @@
+body.login-page,
+body.register-page {
+    background: linear-gradient(to bottom right, #ffffff, #fff9c4);
+    min-height: 100vh;
+}
+
+.auth-card {
+    width: 400px;
+    background-color: #fffde7; /* putih kekuningan */
+    border: 1px solid #fbc02d; /* kuning */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+.auth-card h3 {
+    color: #fbc02d;
+    font-weight: bold;
+}
+
+.auth-card .form-label {
+    color: #fbc02d;
+}
+
+.btn-auth {
+    background-color: #fbc02d;
+    border: none;
+    color: #fff;
+}
+
+.btn-auth:hover {
+    background-color: #fdd835;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #fbc02d !important;
+    box-shadow: 0 0 0 0.25rem rgba(251, 192, 45, 0.25);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 0.5rem 0.5rem 0 0;
+}

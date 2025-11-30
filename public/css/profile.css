@@ -1,0 +1,23 @@
+main {
+    min-height: 100vh;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.main-content {
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #fdd835; /* kuning */
+}
+
+.container {
+    margin-left: 230px; /* supaya tidak ketutup sidebar */
+}

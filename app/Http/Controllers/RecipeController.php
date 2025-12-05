@@ -106,12 +106,26 @@ class RecipeController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            // tambahkan validasi lain sesuai kebutuhan
+            'content' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $recipe = Recipe::findOrFail($id);
-        $recipe->update($request->all());
 
-        return redirect()->route('recipes.index')->with('success', 'Resep berhasil diupdate!');
+        // Update field biasa
+        $recipe->title = $request->title;
+        $recipe->description = $request->description;
+        $recipe->content = $request->content;
+
+        // Kalau ada file baru
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $recipe->image = $path;
+        }
+
+        $recipe->save();
+
+        return redirect()->route('recipes.show', $recipe->id)
+            ->with('success', 'Resep berhasil diperbarui!');
     }
 }

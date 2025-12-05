@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  @include('layouts.navigation') <!-- navigasi sidebar/topbar -->
+  @include('layouts.navigation')
   <main>
     @yield('content')
   </main>
